@@ -1,0 +1,54 @@
+api:
+  host: 0.0.0.0
+  port: 8000
+  workers: 1
+data:
+  chunk_overlap: 64
+  chunk_size: 512
+  instructions_dir: data/instructions
+  min_chunk_length: 100
+  processed_dir: data/processed
+  raw_dir: data/raw
+inference:
+  confidence_threshold: 0.6
+  context_tokens_per_chunk: 60
+  max_new_tokens: 300
+  max_prompt_tokens: 400
+  refusal_threshold: 0.3
+  temperature: 0.3
+  top_p: 0.9
+logging:
+  level: INFO
+  log_dir: logs
+model:
+  base_model: Qwen/Qwen2.5-3B-Instruct
+  dtype: float16
+  max_seq_length: 512
+project:
+  name: aws-enterprise-ai-assistant
+  version: 1.0.0
+qlora:
+  bias: none
+  lora_alpha: 32
+  lora_dropout: 0.05
+  r: 16
+  target_modules:
+  - q_proj
+  - v_proj
+  task_type: CAUSAL_LM
+retrieval:
+  embedding_model: sentence-transformers/all-MiniLM-L6-v2
+  faiss_index_path: data/processed/faiss_index
+  top_k: 3
+training:
+  bf16: false
+  fp16: true
+  gradient_accumulation_steps: 8
+  learning_rate: 0.0002
+  logging_steps: 5
+  lr_scheduler_type: cosine
+  num_train_epochs: 3
+  output_dir: models/checkpoints_3b
+  per_device_train_batch_size: 2
+  save_steps: 50
+  warmup_ratio: 0.05
